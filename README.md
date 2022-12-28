@@ -4,7 +4,7 @@ A simple sdk for calculating auditories
 
 ## Implementation
 
-Add `implementation 'com.dxmdp.android:datamanagerprovider:0.1.0'` to `dependencies` section in `app/build.gradle`.
+Add `implementation 'com.dxmdp.android:datamanagerprovider:0.1.1'` to `dependencies` section in `app/build.gradle`.
 
 ```
 import com.dxmdp.android.DataManagerProvider;
