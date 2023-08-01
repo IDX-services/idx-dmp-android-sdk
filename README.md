@@ -25,7 +25,8 @@ To integrate this SDK into your project, you need:
 Incorporate the Data Manager Provider SDK into your project by adding the following line to the `dependencies` section of your `app/build.gradle` file:
 
 ```gradle
-implementation 'com.dxmdp.android:datamanagerprovider:1.0.0'
+implementation 'com.dxmdp.android:datamanagerprovider:1.0.2'
+implementation 'com.dxmdp.android:adbuilder:1.0.2'
 ```
 
 ## Initialization
@@ -35,7 +36,7 @@ The SDK requires initialization with a valid `providerId` from the IDX before us
 Start by importing the necessary classes:
 
 ```java
-import com.dxmdp.android.DataManagerProvider;
+import com.dxmdp.android.adbuilder.DMPAdBuilder;
 import com.dxmdp.android.requests.event.EventRequestProperties;
 ```
 
@@ -43,14 +44,14 @@ Then, initialize the SDK within the `onCreate` method of your `MainActivity` cla
 
 ```java
 public class MainActivity extends AppCompatActivity {
-  private DataManagerProvider dataManagerProvider;
+  private DMPAdBuilder dmpAdBuilder;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     String providerId = "Your Provider ID goes here";
-    dataManagerProvider = new DataManagerProvider(
+    dmpAdBuilder = new DMPAdBuilder(
         getApplicationContext(),
         providerId
     );
@@ -83,7 +84,7 @@ protected void onResume() {
     eventRequestProperties.tags = Arrays.asList("tag1", "tag2", "tag3"); // Replace with the tags related to the page
 
     // Send the event
-    dataManagerProvider.sendEventRequest(eventRequestProperties);
+    dmpAdBuilder.sendEventRequest(eventRequestProperties);
 }
 ```
 
@@ -91,7 +92,7 @@ This sends a pageview event each time a user visits the specified page in your a
 
 ## Targeting Google Ads
 
-In order to make an ad request targeting IDX audience, you need to create an `AdManagerAdRequest.Builder` object. Then, using the `DataManagerProvider`, add IDX Audiences to the builder.
+In order to make an ad request targeting IDX audience, you need to create an `AdManagerAdRequest.Builder` object. Then, using the `dmpAdBuilder`, add IDX Audiences to the builder.
 
 Below are the steps to create an ad request using our SDK:
 
@@ -101,7 +102,7 @@ AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
 
 // Step 2: Add IDX audiences using DMP SDK
 // This will enhance your ad targeting by including the audiences obtained from the IDX.
-AdManagerAdRequest adRequest = dataManagerProvider
+AdManagerAdRequest adRequest = dmpAdBuilder
       .addIDXAudiences(builder)
       .build();
 ```
