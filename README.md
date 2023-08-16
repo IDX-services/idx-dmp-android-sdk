@@ -105,6 +105,10 @@ AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
 AdManagerAdRequest adRequest = dmpAdBuilder
       .addIDXAudiences(builder)
       .build();
+
+// Step 3: Retrieve and log the audiences added to the request
+val audiences = adRequest.customTargeting.getString("dxseg");
+Log.d("Audiences", audiences ?: "No audiences found");
 ```
 
 This process results in an `AdManagerAdRequest` object which includes IDX audiences for ad targeting. You can then pass this `adRequest` object when loading an ad, as shown below:
