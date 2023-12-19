@@ -25,8 +25,8 @@ To integrate this SDK into your project, you need:
 Incorporate the Data Manager Provider SDK into your project by adding the following line to the `dependencies` section of your `app/build.gradle` file:
 
 ```gradle
-implementation 'com.dxmdp.android:datamanagerprovider:1.0.2'
-implementation 'com.dxmdp.android:adbuilder:1.0.2'
+implementation 'com.dxmdp.android:datamanagerprovider:2.0.0'
+implementation 'com.dxmdp.android:adbuilder:2.0.0'
 ```
 
 ## Initialization
@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
     String providerId = "Your Provider ID goes here";
     dmpAdBuilder = new DMPAdBuilder(
         getApplicationContext(),
-        providerId
+        providerId,
+        "My app name"
     );
   }
 }
