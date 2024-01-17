@@ -25,7 +25,7 @@ To integrate this SDK into your project, you need:
 Incorporate the Data Manager Provider SDK into your project by adding the following line to the `dependencies` section of your `app/build.gradle` file:
 
 ```gradle
-implementation 'com.dxmdp.android:datamanagerprovider:2.0.0'
+implementation 'com.dxmdp.android:datamanagerprovider:2.0.1'
 implementation 'com.dxmdp.android:adbuilder:2.0.0'
 ```
 
@@ -76,13 +76,13 @@ protected void onResume() {
     EventRequestProperties eventRequestProperties = new EventRequestProperties();
 
     // Set the relevant properties
-    eventRequestProperties.url = "/examplePage"; // Replace with the specific page URL or identifier
-    eventRequestProperties.title = "Example Page Title"; // Replace with the specific page title
-    eventRequestProperties.domain = "your-domain.com"; // Replace with your domain
-    eventRequestProperties.author = "author"; // Replace with the author of the page
-    eventRequestProperties.category = "category"; // Replace with the category of the page
-    eventRequestProperties.description = "This is an example page."; // Replace with the description of the page
-    eventRequestProperties.tags = Arrays.asList("tag1", "tag2", "tag3"); // Replace with the tags related to the page
+    eventRequestProperties.setUrl("/examplePage"); // Replace with the specific page URL or identifier
+    eventRequestProperties.setTitle("Example Page Title"); // Replace with the specific page title
+    eventRequestProperties.setDomain("your-domain.com"); // Replace with your domain
+    eventRequestProperties.setAuthor("author"); // Replace with the author of the page
+    eventRequestProperties.setCategory("category"); // Replace with the category of the page
+    eventRequestProperties.setDescription("This is an example page."); // Replace with the description of the page
+    eventRequestProperties.setTags(Arrays.asList("tag1", "tag2", "tag3")); // Replace with the tags related to the page
 
     // Send the event
     dmpAdBuilder.sendEventRequest(eventRequestProperties);
