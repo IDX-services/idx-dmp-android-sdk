@@ -25,7 +25,7 @@ To integrate this SDK into your project, you need:
 Incorporate the Data Manager Provider SDK into your project by adding the following line to the `dependencies` section of your `app/build.gradle` file:
 
 ```gradle
-implementation 'com.dxmdp.android:datamanagerprovider:2.1.0'
+implementation 'com.dxmdp.android:datamanagerprovider:2.2.0'
 implementation 'com.dxmdp.android:adbuilder:2.1.0'
 ```
 
@@ -90,6 +90,53 @@ protected void onResume() {
 ```
 
 This sends a pageview event each time a user visits the specified page in your application.
+
+## Initialization WebView Connector
+
+```java
+import com.dxmdp.android.DMPWebViewConnector;
+```
+
+Then, initialize the Connector within the `onCreate` method of your `MainActivity` class:
+
+```java
+public class MainActivity extends AppCompatActivity {
+  private String userId = "";
+  private String definitionIds = "";
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    
+    DMPWebViewConnector webViewConnector = new DMPWebViewConnector(
+      getApplicationContext(),
+      (userId, definitionIds) -> {
+        // Handle data from webView
+        this.userId = userId;
+        this.definitionIds = definitionIds;
+        return null;
+      },
+      "My app name"
+    );
+
+    WebView webview = new WebView(getApplicationContext());
+
+    webview.getSettings().setJavaScriptEnabled(true);
+    webview.getSettings().setDomStorageEnabled(true);
+    webview.addJavascriptInterface(webViewConnector, "DMPWebViewConnector");
+  }
+}
+```
+
+And build your Ad
+
+```java
+AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
+builder
+  .addCustomTargeting("dxu", userId)
+  .addCustomTargeting("permutive", userId)
+  .addCustomTargeting("dxseg", definitionIds);
+```
 
 ## Targeting Google Ads
 
