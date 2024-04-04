@@ -25,11 +25,11 @@ To integrate this SDK into your project, you need:
 Incorporate the Data Manager Provider SDK into your project by adding the following line to the `dependencies` section of your `app/build.gradle` file:
 
 ```gradle
-implementation 'com.dxmdp.android:datamanagerprovider:2.2.0'
-implementation 'com.dxmdp.android:adbuilder:2.1.0'
+implementation 'com.dxmdp.android:datamanagerprovider:2.3.0'
+implementation 'com.dxmdp.android:adbuilder:2.3.0'
 ```
 
-## Initialization
+## Initialization DataManagerProvider
 
 The SDK requires initialization with a valid `providerId` from the IDX before usage.
 
@@ -91,7 +91,7 @@ protected void onResume() {
 
 This sends a pageview event each time a user visits the specified page in your application.
 
-## Initialization WebView Connector
+## Initialization DMPWebViewConnector
 
 ```java
 import com.dxmdp.android.DMPWebViewConnector;
@@ -110,12 +110,6 @@ public class MainActivity extends AppCompatActivity {
     
     DMPWebViewConnector webViewConnector = new DMPWebViewConnector(
       getApplicationContext(),
-      (userId, definitionIds) -> {
-        // Handle data from webView
-        this.userId = userId;
-        this.definitionIds = definitionIds;
-        return null;
-      },
       "My app name"
     );
 
@@ -123,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     webview.getSettings().setJavaScriptEnabled(true);
     webview.getSettings().setDomStorageEnabled(true);
-    webview.addJavascriptInterface(webViewConnector, "DMPWebViewConnector");
+    webview.addJavascriptInterface(webViewConnector, DMPWebViewConnector.CONNECTOR_NAME);
   }
 }
 ```
@@ -132,11 +126,11 @@ And build your Ad
 
 ```java
 AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
-builder
-  .addCustomTargeting("dxu", userId)
-  .addCustomTargeting("permutive", userId)
-  .addCustomTargeting("dxseg", definitionIds);
+
+Map<String, String> customParameters = webViewConnector.getCustomAdTargeting();
 ```
+
+Then, using `builder.addCustomTargeting(key, value)`, add all key-values from `customParameters` to `builder`
 
 ## Targeting Google Ads
 
