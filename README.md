@@ -171,7 +171,7 @@ The Data Manager Provider SDK is licensed under the MIT License.
 
 ```
 MIT License
-Copyright (c) 2022 Brainway-LTD
+Copyright (c) 2024 IDX LTD
 
 Permission is granted to freely use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, subject to including the above copyright notice and this permission notice in all copies or substantial portions of the Software.
 
