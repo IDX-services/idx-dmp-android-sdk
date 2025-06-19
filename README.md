@@ -17,7 +17,7 @@ This guide provides detailed instructions on how to integrate and use the IDX Da
 
 To integrate this SDK into your project, you need:
 
-- Android 5.0 (API level 21) or above
+- Android 7.0 (API level 24) or above
 - A ProviderId
 
 ## Installation
@@ -25,8 +25,8 @@ To integrate this SDK into your project, you need:
 Incorporate the Data Manager Provider SDK into your project by adding the following line to the `dependencies` section of your `app/build.gradle` file:
 
 ```gradle
-implementation 'com.dxmdp.android:datamanagerprovider:2.4.5'
-implementation 'com.dxmdp.android:adbuilder:2.4.5'
+implementation 'com.dxmdp.android:datamanagerprovider:2.4.8'
+implementation 'com.dxmdp.android:adbuilder:2.4.8'
 ```
 
 ## Initialization DataManagerProvider
