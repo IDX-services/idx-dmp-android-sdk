@@ -104,7 +104,9 @@ This sends a pageview event each time a user visits the specified page in your a
 import com.dxmdp.android.DMPWebViewConnector;
 ```
 
-Then, initialize the Connector within the `onCreate` method of your `MainActivity` class:
+Then, initialize the Connector within the `onCreate` method of your `MainActivity` class.
+
+If you have multiple webviews, you need to create a separate DMPWebViewConnector for each of them. DMPWebViewConnector is just a small bridge, so it has practically no overhead:
 
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -115,17 +117,29 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
-    DMPWebViewConnector webViewConnector = new DMPWebViewConnector(
+    DMPWebViewConnector webViewConnector1 = new DMPWebViewConnector(
       getApplicationContext(),
       "My app name",
       "1.0.0" // My app version
     );
 
-    WebView webview = new WebView(getApplicationContext());
+    DMPWebViewConnector webViewConnector2 = new DMPWebViewConnector(
+      getApplicationContext(),
+      "My app name",
+      "1.0.0" // My app version
+    );
 
-    webview.getSettings().setJavaScriptEnabled(true);
-    webview.getSettings().setDomStorageEnabled(true);
-    webview.addJavascriptInterface(webViewConnector, DMPWebViewConnector.CONNECTOR_NAME);
+    WebView webview1 = new WebView(getApplicationContext());
+
+    webview1.getSettings().setJavaScriptEnabled(true);
+    webview1.getSettings().setDomStorageEnabled(true);
+    webview1.addJavascriptInterface(webViewConnector1, DMPWebViewConnector.CONNECTOR_NAME);
+
+    WebView webview2 = new WebView(getApplicationContext());
+
+    webview2.getSettings().setJavaScriptEnabled(true);
+    webview2.getSettings().setDomStorageEnabled(true);
+    webview2.addJavascriptInterface(webViewConnector2, DMPWebViewConnector.CONNECTOR_NAME);
   }
 }
 ```
@@ -135,7 +149,8 @@ And build your Ad
 ```java
 AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
 
-Map<String, String> customParameters = webViewConnector.getCustomAdTargeting();
+Map<String, String> customParameters1 = webViewConnector1.getCustomAdTargeting();
+Map<String, String> customParameters2 = webViewConnector2.getCustomAdTargeting();
 ```
 
 Then, using `builder.addCustomTargeting(key, value)`, add all key-values from `customParameters` to `builder`
